@@ -1,75 +1,54 @@
 ﻿
-//Criar Lista
-using ListEmplyee;
-using System.ComponentModel.DataAnnotations;
-using System.Globalization;
 
-var employees = CreateList();
+using ListaFuncionarios;
+using System.Reflection.Metadata.Ecma335;
 
-//Mostrar Lista
-ShowList(employees);
+Console.WriteLine("Quantos funcionários irá registrar? ");
+int numeroDeFuncionarios = int.Parse(Console.ReadLine());
 
-//editar Lista
-employees = UpdateSalary(employees);
+List<Funcionarios> lista = new List<Funcionarios>();
 
-//Mostrar lista
-Console.WriteLine("Update list of employees: ");
-ShowList(employees);
-
-
-
-    static List<Employee> CreateList()
+for(int i=1; i <= numeroDeFuncionarios; i++)
 {
-    var employees = new List<Employee>();
+    Console.WriteLine("Funcionario # " + i + ": ");
+    Console.Write("Id: ");
+    int id = int.Parse(Console.ReadLine());
+    Console.Write("Nome: ");
+    string nome = Console.ReadLine();
+    Console.Write("Salário: ");
+    double salario = double.Parse(Console.ReadLine());
 
-    Console.WriteLine("How many employee will be registreded? ");
-    var amount = Console.ReadLine();
+    lista.Add(new Funcionarios(id, nome, salario));
+    Console.WriteLine();
 
-    for(int i =0; i < int.Parse(amount); i++)
-    {
-        Console.WriteLine($"Employee #{1} ");
-
-        Console.WriteLine("Id: ");
-        var id = Console.ReadLine();
-
-        Console.WriteLine("Name: ");
-        var name = Console.ReadLine();
-
-        Console.WriteLine("Salary: ");
-        var salary = Console.ReadLine();
-
-        employees.Add(new Employee(int.Parse(id), name, double.Parse(salary)));
-        Console.WriteLine("---------------------------------------");
-
-        Console.WriteLine("Employee successfully added!");
-
-       
-    }
-
-    return employees;
 
 }
 
-static void ShowList(List<Employee> employees)
-{
-    foreach(var employee in employees)
-    {
-        Console.WriteLine($"Employee: {employee.Id} - {employee.Name} - {employee.Salary}");
 
-    }
+Console.Write("Entre com o ID do funcionário que terá aumento de salário: ");
+int searchId = int.Parse(Console.ReadLine());
+
+Funcionarios func = lista.Find(x => x.Id == searchId);
+if(func != null)
+{
+    Console.WriteLine("Entre com a porcentagem: ");
+    float porcentagem = float.Parse(Console.ReadLine());
+    func.AumentoDeSalario(porcentagem);
+
+}
+else
+{
+    Console.WriteLine("Esse ID não existe!");
 }
 
-static List<Employee> UpdateSalary(List<Employee> employyes)
+
+Console.WriteLine();
+Console.WriteLine("Lista atualizada de funcionários: ");
+foreach(Funcionarios nomesNaLista in lista)
 {
-    Console.WriteLine("Enter the employee ID that will have salary increase: ");
-    var id = int.Parse(Console.ReadLine());
-
-    Console.WriteLine("Percentage: ");
-    var percentage = double.Parse(Console.ReadLine());
-
-    var employeeIndex = employyes.FindIndex(x => x.Id == id);
-    employyes[employeeIndex].IncreaseSalary(percentage);
-
-    return employyes;
+    Console.WriteLine(nomesNaLista);
 }
+
+
+
 
