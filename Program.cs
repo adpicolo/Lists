@@ -1,54 +1,43 @@
 ﻿
+using System.Collections.Generic;
 
-using ListaFuncionarios;
-using System.Reflection.Metadata.Ecma335;
+List<string> carros = new List<string>();
+List<string> carros2 = new List<string>();
 
-Console.WriteLine("Quantos funcionários irá registrar? ");
-int numeroDeFuncionarios = int.Parse(Console.ReadLine());
 
-List<Funcionarios> lista = new List<Funcionarios>();
+carros.Add("golf");
+carros.Add("HRV");
+carros.Add("Focus");
+carros.Add("Tiggo");
+//Add adiciona na sequencia; 
 
-for(int i=1; i <= numeroDeFuncionarios; i++)
+carros2.AddRange(carros);
+//AddRange adiciona varios elementos de uma só vez em outra lista;
+
+
+
+
+//carros.Clear() Limpa a lista;
+//Contains - para buscar algo na lista - retorna TRUE se esta na lista e FALSE s enão estiver;
+
+if (carros.Contains("HRV"))
 {
-    Console.WriteLine("Funcionario # " + i + ": ");
-    Console.Write("Id: ");
-    int id = int.Parse(Console.ReadLine());
-    Console.Write("Nome: ");
-    string nome = Console.ReadLine();
-    Console.Write("Salário: ");
-    double salario = double.Parse(Console.ReadLine());
-
-    lista.Add(new Funcionarios(id, nome, salario));
-    Console.WriteLine();
-
-
-}
-
-
-Console.Write("Entre com o ID do funcionário que terá aumento de salário: ");
-int searchId = int.Parse(Console.ReadLine());
-
-Funcionarios func = lista.Find(x => x.Id == searchId);
-if(func != null)
-{
-    Console.WriteLine("Entre com a porcentagem: ");
-    float porcentagem = float.Parse(Console.ReadLine());
-    func.AumentoDeSalario(porcentagem);
-
+    Console.WriteLine("Esta na lista");
 }
 else
 {
-    Console.WriteLine("Esse ID não existe!");
+    Console.WriteLine("NÃO ENCONTRADO");
 }
 
 
-Console.WriteLine();
-Console.WriteLine("Lista atualizada de funcionários: ");
-foreach(Funcionarios nomesNaLista in lista)
+
+foreach(string c in carros2)
 {
-    Console.WriteLine(nomesNaLista);
+    Console.WriteLine("Carro: {0}", c);
 }
 
-
-
-
+//IndexOff - retorna a posição do elemento pesquisado;
+string car = "Tiggo";
+int pos = 0;
+pos = carros.IndexOf(car);
+Console.WriteLine("carro {0} esta na posição {1} ", car, pos);
